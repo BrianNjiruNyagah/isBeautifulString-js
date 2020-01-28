@@ -1,0 +1,27 @@
+function isBeautifulString(inputString) {
+    let object = {};
+    var a = 'a'.charCodeAt(0), z = 'z'.charCodeAt(0);
+    //creates an object that stores alphabets and their number of occurence 
+    //that will be noted but for now their rate of occurence if 0
+    inputString = inputString.split('').sort().join('');
+    for(;a < z+1 || String.fromCharCode(a) == inputString[inputString.length-1];a++){
+        object[String.fromCharCode(a)] = 0;
+        if(String.fromCharCode(a) == inputString[inputString.length-1]) break;
+    }
+    //assigns the number of occurence of an alphabet in the inputstring 
+    while(inputString != ""){
+        let re = new RegExp(inputString[0],'g');
+        object[inputString[0]] = inputString.match(re).length;
+        inputString=inputString.replace(re,'');
+    }
+    //checks out the flow of continuation of the alphabets occurence
+    let begin = object[0];
+    for(let x in object){
+        if(begin < object[x]){
+            return false;
+        }
+        begin = object[x];
+    }
+    
+    return true;
+}
